@@ -4,6 +4,7 @@
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 0px 0px;
   height: 100vh;
+  background-color: gray;
 }
 
 .border {
@@ -13,12 +14,15 @@
 .navigation {
   grid-area: 1 / 1 / 2 / 10;
 }
+
 .sidebar {
   grid-area: 2 / 1 / 10 / 2;
 }
+
 .item {
   grid-area: 2 / 2 / 10 / 10;
 }
+
 .meta-data {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -30,11 +34,20 @@
     ". . .";
   grid-area: 2 / 2 / 5 / 10;
 }
+
 .item-details {
   grid-area: 5 / 2 / 9 / 10;
 }
+
 .actions {
   grid-area: 9 / 2 / 10 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actions form {
+  display: flex;
 }
 
 .modal-window {
