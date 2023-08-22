@@ -1,11 +1,11 @@
 import React from "react";
-import Item from "./Item";
+import ListElement from "./ListElement";
 
 function Post({ posts }) {
   return (
-    <ul>
+    <ul className="flex flex-col h-full">
       {posts.map((post) => {
-        return <Item product={post} key={post.id} />;
+        return <ListElement product={post} key={post.id} />;
       })}
     </ul>
   );

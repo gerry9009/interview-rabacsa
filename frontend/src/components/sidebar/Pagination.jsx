@@ -17,23 +17,20 @@ function Pagination({ postsPerPage, totalPosts, paginate }) {
   }, [postsPerPage, totalPosts]);
 
   return (
-    <nav>
-      <ul className="pagination">
-        {pageNumbers.map((number) => {
-          return (
-            <li key={number + Math.floor(Math.random() * 1000)}>
-              <a
-                onClick={() => {
-                  paginate(number);
-                }}
-                href="#"
-              >
-                {number}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+    <nav className="flex justify-evenly flex-wrap">
+      {pageNumbers.map((number) => {
+        return (
+          <button
+            key={number + Math.floor(Math.random() * 1000)}
+            onClick={() => {
+              paginate(number);
+            }}
+            className="text-gray-500 hover:text-blue-600 p-1 inline-flex items-center text-sm font-medium rounded-full"
+          >
+            {number}
+          </button>
+        );
+      })}
     </nav>
   );
 }

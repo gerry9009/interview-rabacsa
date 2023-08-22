@@ -3,8 +3,9 @@ import axios from "axios";
 
 const initialState = {
   products: [],
-  product: [],
+  product: {},
   categories: [],
+  selectedID: null,
 };
 
 export const productsSlice = createSlice({
@@ -20,6 +21,9 @@ export const productsSlice = createSlice({
     setCategories: (state, action) => {
       state.categories = action.payload;
     },
+    setID: (state, action) => {
+      state.selectedID = action.payload;
+    },
     // get products list and order it
   },
   extraReducers: {},
@@ -32,6 +36,31 @@ export const fetchProducts = createAsyncThunk(
       const data = res.data.products;
 
       dispatch(productsSlice.actions.setProducts(data));
+
+      const state = getState();
+      const products = state.products.products;
+      if (products.length) {
+        dispatch(productsSlice.actions.setID(products[0].id));
+      }
+    });
+  }
+);
+
+export const fetchHighPriceProducts = createAsyncThunk(
+  "get_items",
+  async (_, { getState, dispatch }) => {
+    axios.get("http://localhost:8088/api/").then((res) => {
+      const data = res.data.products;
+
+      const sortedData = data.sort((a, b) => b.price - a.price);
+      const slicedData = sortedData.slice(0, 25);
+      dispatch(productsSlice.actions.setProducts(slicedData));
+
+      const state = getState();
+      const products = state.products.products;
+      if (products.length) {
+        dispatch(fetchProduct(products[0].id));
+      }
     });
   }
 );
@@ -41,8 +70,17 @@ export const fetchProduct = createAsyncThunk(
   async (id, { getState, dispatch }) => {
     axios.get(`http://localhost:8088/api/${id}`).then((res) => {
       const data = res.data;
-      console.log(data);
+
       dispatch(productsSlice.actions.setProduct(data));
+    });
+  }
+);
+
+export const deleteItem = createAsyncThunk(
+  "delete_item",
+  async (id, { getState, dispatch }) => {
+    axios.delete(`http://localhost:8088/api/${id}`).then((res) => {
+      dispatch(fetchProducts());
     });
   }
 );
@@ -57,5 +95,7 @@ export const fetchCategories = createAsyncThunk(
     });
   }
 );
+
+export const { setID } = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -1,21 +1,20 @@
-import "./App.css";
+// import "./App.css";
 import Actions from "./components/actions/Actions";
 import Items from "./components/item_details/Items";
 import Meta from "./components/meta_data/Meta";
 import Navigation from "./components/navigation/Navigation";
 import Sidebar from "./components/sidebar/Sidebar";
-import Modal from "./components/modal_window/Modal";
 
 function App() {
   return (
-    <div className="App">
+    <div className="h-screen max-w-full max-h-screen grid grid-rows-9 grid-cols-9">
       <Navigation />
       <Sidebar />
       <Meta />
       <Items />
       <Actions />
       {/*MODAL ABLAK CSAK AKKOR JELENIK MEG, HA RÁKATTINTANAK EGY ELEMRE */}
-      <Modal />
+      {/*<Modal />*/}
     </div>
   );
 }

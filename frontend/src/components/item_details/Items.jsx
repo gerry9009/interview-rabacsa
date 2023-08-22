@@ -22,13 +22,31 @@ const Items = () => {
     fetchCurrencyRate();
   }, [product]);
 
+  const ItemDescription = () => {
+    return (
+      <>
+        <div className="w-1/6">
+          <p>{product.description}</p>
+        </div>
+        <div>
+          <p>Stock: {product.stock} pieces</p>
+          <p>Rating: {product.rating}</p>
+          <p>{price} Huf</p>
+        </div>
+        {product.images && (
+          <img
+            src={product.images[0]}
+            alt={product.title}
+            className="w-3/6 max-h-full"
+          />
+        )}
+      </>
+    );
+  };
+
   return (
-    <div className="item-details border">
-      <p>{product.description}</p>
-      <p>{product.stock}</p>
-      <p>{product.rating}</p>
-      <p>{price}</p>
-      {product.images && <img src={product.images[0]} alt={product.title} />}
+    <div className="row-start-5 col-start-2 row-span-4 col-span-full flex justify-between items-center border-2 px-2">
+      {product.id && <ItemDescription />}
     </div>
   );
 };
