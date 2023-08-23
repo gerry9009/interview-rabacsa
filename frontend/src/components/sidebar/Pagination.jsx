@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 function Pagination({ postsPerPage, totalPosts, paginate }) {
   const [pageNumbers, setPageNumbers] = useState([]);
@@ -21,7 +22,7 @@ function Pagination({ postsPerPage, totalPosts, paginate }) {
       {pageNumbers.map((number) => {
         return (
           <button
-            key={number + Math.floor(Math.random() * 1000)}
+            key={uuidv4()}
             onClick={() => {
               paginate(number);
             }}

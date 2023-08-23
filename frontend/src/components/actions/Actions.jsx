@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../../state/reducers/productsReducer";
+import { v4 as uuidv4 } from "uuid";
 
 function Actions() {
   const dispatch = useDispatch();
@@ -49,9 +50,7 @@ function Actions() {
         <label>
           <select>
             {categories.map((category) => (
-              <option key={category + Math.random() * 100000}>
-                {category}
-              </option>
+              <option key={uuidv4()}>{category}</option>
             ))}
           </select>
         </label>

@@ -6,6 +6,8 @@ const initialState = {
   product: {},
   categories: [],
   selectedID: null,
+  modalImageURL: null,
+  openModal: false,
 };
 
 export const productsSlice = createSlice({
@@ -24,7 +26,12 @@ export const productsSlice = createSlice({
     setID: (state, action) => {
       state.selectedID = action.payload;
     },
-    // get products list and order it
+    setModalImageURL: (state, action) => {
+      state.modalImageURL = action.payload;
+    },
+    setOpenModal: (state, action) => {
+      state.openModal = action.payload;
+    },
   },
   extraReducers: {},
 });
@@ -59,7 +66,7 @@ export const fetchHighPriceProducts = createAsyncThunk(
       const state = getState();
       const products = state.products.products;
       if (products.length) {
-        dispatch(fetchProduct(products[0].id));
+        dispatch(productsSlice.actions.setID(products[0].id));
       }
     });
   }
@@ -96,6 +103,6 @@ export const fetchCategories = createAsyncThunk(
   }
 );
 
-export const { setID } = productsSlice.actions;
+export const { setID, setModalImageURL, setOpenModal } = productsSlice.actions;
 
 export default productsSlice.reducer;

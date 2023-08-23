@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Gallery } from "./Gallery";
 
 const Items = () => {
   const { product } = useSelector((state) => state.products);
 
   const [price, setPrice] = useState();
 
+  // fetch currency rate to change euro to huf if product changed
   useEffect(() => {
     const fetchCurrencyRate = async () => {
       const res = await axios.get(
@@ -33,13 +35,7 @@ const Items = () => {
           <p>Rating: {product.rating}</p>
           <p>{price} Huf</p>
         </div>
-        {product.images && (
-          <img
-            src={product.images[0]}
-            alt={product.title}
-            className="w-3/6 max-h-full"
-          />
-        )}
+        <Gallery imageContainer={product.images} />
       </>
     );
   };
