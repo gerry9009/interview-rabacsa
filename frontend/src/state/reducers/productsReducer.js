@@ -8,6 +8,7 @@ const initialState = {
   selectedID: null,
   modalImageURL: null,
   openModal: false,
+  currencyRate: 0,
 };
 
 export const productsSlice = createSlice({
@@ -31,6 +32,9 @@ export const productsSlice = createSlice({
     },
     setOpenModal: (state, action) => {
       state.openModal = action.payload;
+    },
+    setCurrencyRate: (state, action) => {
+      state.currencyRate = action.payload;
     },
   },
   extraReducers: {},
@@ -79,6 +83,26 @@ export const fetchProduct = createAsyncThunk(
       const data = res.data;
 
       dispatch(productsSlice.actions.setProduct(data));
+    });
+  }
+);
+
+export const fetchCurrencyRate = createAsyncThunk(
+  "get_currency",
+  async (_, { getState, dispatch }) => {
+    axios.get("https://economia.awesomeapi.com.br/last/EUR-HUF").then((res) => {
+      const data = res.data.EURHUF.high;
+
+      dispatch(productsSlice.actions.setCurrencyRate(data));
+    });
+  }
+);
+
+export const postProduct = createAsyncThunk(
+  "post_item",
+  async (data, { getState, dispatch }) => {
+    axios.post(`http://localhost:8088/api/`, { data }).then((res) => {
+      dispatch(fetchProducts());
     });
   }
 );

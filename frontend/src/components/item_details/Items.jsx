@@ -1,27 +1,21 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Gallery } from "./Gallery";
+import { fetchCurrencyRate } from "../../state/reducers/productsReducer";
 
 const Items = () => {
-  const { product } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+  const { product, currencyRate } = useSelector((state) => state.products);
 
   const [price, setPrice] = useState();
 
   // fetch currency rate to change euro to huf if product changed
   useEffect(() => {
-    const fetchCurrencyRate = async () => {
-      const res = await axios.get(
-        "https://economia.awesomeapi.com.br/last/EUR-HUF"
-      );
-      const currencyRate = res.data.EURHUF.high;
+    dispatch(fetchCurrencyRate());
 
-      if (product.price) {
-        setPrice(Math.round(product.price * currencyRate));
-      }
-    };
-
-    fetchCurrencyRate();
+    if (product.price) {
+      setPrice(Math.round(product.price * currencyRate));
+    }
   }, [product]);
 
   const ItemDescription = () => {

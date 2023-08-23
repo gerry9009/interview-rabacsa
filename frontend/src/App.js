@@ -13,8 +13,6 @@ function App() {
       <Meta />
       <Items />
       <Actions />
-      {/*MODAL ABLAK CSAK AKKOR JELENIK MEG, HA RÁKATTINTANAK EGY ELEMRE */}
-      {/*<Modal />*/}
     </div>
   );
 }

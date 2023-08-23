@@ -30,7 +30,7 @@ router.post("/", (req, res) => {
       items.products.forEach((item) => ids.push(item.id));
       const id = randomID(ids);
 
-      const newItem = { id, ...req.body };
+      const newItem = { id, ...req.body.data };
 
       items.products.push(newItem);
 
