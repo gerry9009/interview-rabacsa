@@ -4,10 +4,12 @@ import axios from "axios";
 const initialState = {
   products: [],
   product: {},
+  editProduct: {},
   categories: [],
   selectedID: null,
   modalImageURL: null,
-  openModal: false,
+  openImageModal: false,
+  openDeleteModal: false,
   currencyRate: 0,
 };
 
@@ -21,6 +23,9 @@ export const productsSlice = createSlice({
     setProduct: (state, action) => {
       state.product = action.payload;
     },
+    setEditProduct: (state, action) => {
+      state.editProduct = action.payload;
+    },
     setCategories: (state, action) => {
       state.categories = action.payload;
     },
@@ -30,8 +35,11 @@ export const productsSlice = createSlice({
     setModalImageURL: (state, action) => {
       state.modalImageURL = action.payload;
     },
-    setOpenModal: (state, action) => {
-      state.openModal = action.payload;
+    setOpenImageModal: (state, action) => {
+      state.openImageModal = action.payload;
+    },
+    setOpenDeleteModal: (state, action) => {
+      state.openDeleteModal = action.payload;
     },
     setCurrencyRate: (state, action) => {
       state.currencyRate = action.payload;
@@ -87,14 +95,17 @@ export const fetchProduct = createAsyncThunk(
   }
 );
 
-export const fetchCurrencyRate = createAsyncThunk(
-  "get_currency",
-  async (_, { getState, dispatch }) => {
-    axios.get("https://economia.awesomeapi.com.br/last/EUR-HUF").then((res) => {
-      const data = res.data.EURHUF.high;
-
-      dispatch(productsSlice.actions.setCurrencyRate(data));
-    });
+export const patchProduct = createAsyncThunk(
+  "get_items",
+  async ({ id, title, description, price }, { getState, dispatch }) => {
+    axios
+      .patch(`http://localhost:8088/api/${id}`, {
+        data: { title, description, price },
+      })
+      .then(async (res) => {
+        const wait = await dispatch(fetchProducts());
+        dispatch(productsSlice.actions.setID(id));
+      });
   }
 );
 
@@ -127,6 +138,23 @@ export const fetchCategories = createAsyncThunk(
   }
 );
 
-export const { setID, setModalImageURL, setOpenModal } = productsSlice.actions;
+export const fetchCurrencyRate = createAsyncThunk(
+  "get_currency",
+  async (_, { getState, dispatch }) => {
+    axios.get("https://economia.awesomeapi.com.br/last/EUR-HUF").then((res) => {
+      const data = res.data.EURHUF.high;
+
+      dispatch(productsSlice.actions.setCurrencyRate(data));
+    });
+  }
+);
+
+export const {
+  setID,
+  setEditProduct,
+  setModalImageURL,
+  setOpenImageModal,
+  setOpenDeleteModal,
+} = productsSlice.actions;
 
 export default productsSlice.reducer;

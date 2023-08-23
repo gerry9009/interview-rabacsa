@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setOpenModal } from "../../state/reducers/productsReducer";
+import { setOpenImageModal } from "../../state/reducers/productsReducer";
 
 const ImageModal = () => {
   const dispatch = useDispatch();
   const { modalImageURL, product } = useSelector((state) => state.products);
 
   const closeModal = () => {
-    dispatch(setOpenModal(false));
+    dispatch(setOpenImageModal(false));
   };
 
   const btnStyle =

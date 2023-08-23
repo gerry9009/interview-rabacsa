@@ -66,7 +66,9 @@ router
   // edit product by id
   .patch((req, res) => {
     const id = req.params.id;
-    const modifiedItem = req.body;
+    const modifiedItem = req.body.data;
+
+    console.log("PATCH", modifiedItem, id);
 
     fs.readFile("./api/products_dummy.json", (err, data) => {
       if (err) {

@@ -79,12 +79,12 @@ function NewProduct() {
   };
 
   const labelStyle =
-    "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2";
+    "block uppercase tracking-wide text-gray-700 text-xs font-bold";
   const inputStyle =
-    "appearance-none text-xs block w-full h-9 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500";
+    "appearance-none text-xs block w-full h-8 bg-gray-200 text-gray-700 border border-gray-200 rounded px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500";
 
   return (
-    <div className="flex justify-between gap-2 h-full px-1 py-2">
+    <div className="flex justify-between item-top gap-x-1 h-full px-2 py-1">
       <div className="min-w-32">
         <label className={labelStyle} htmlFor="title">
           Title
@@ -203,13 +203,13 @@ function NewProduct() {
         </select>
       </div>
 
-      <div className="flex justify-center items-center mb-2">
-        <input
-          type="submit"
-          className="w-16 h-9 bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white border border-gray-500 hover:border-transparent rounded"
+      <div className="flex justify-center items-top mt-4">
+        <button
+          className="w-16 h-8 bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white border border-gray-500 hover:border-transparent rounded"
           onClick={handleSubmitButton}
-          value="Send"
-        />
+        >
+          Send
+        </button>
       </div>
     </div>
   );

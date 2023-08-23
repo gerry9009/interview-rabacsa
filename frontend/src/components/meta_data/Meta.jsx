@@ -1,14 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteItem } from "../../state/reducers/productsReducer";
 
 function Meta() {
   const dispatch = useDispatch();
   const { product } = useSelector((state) => state.products);
-
-  const handleDelete = () => {
-    dispatch(deleteItem(product.id));
-  };
 
   const ProductDetails = () => {
     return (
@@ -28,14 +23,6 @@ function Meta() {
         </div>
         <div className="row-start-2 col-start-3 flex justify-center">
           <img src={product.thumbnail} alt={product.title} />
-        </div>
-        <div className="row-start-1 col-start-3 flex justify-center items-center">
-          <button
-            className="row-start-3 col-start-3 bg-red-500 hover:bg-red-700 text-white rounded px-1 py-2"
-            onClick={handleDelete}
-          >
-            Delete
-          </button>
         </div>
       </>
     );

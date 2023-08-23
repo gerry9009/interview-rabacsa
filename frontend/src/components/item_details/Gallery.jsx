@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import {
   setModalImageURL,
-  setOpenModal,
+  setOpenImageModal,
 } from "../../state/reducers/productsReducer";
 import ImageModal from "./ImageModal";
 
 export const Gallery = ({ imageContainer }) => {
   const dispatch = useDispatch();
-  const { product, openModal } = useSelector((state) => state.products);
+  const { product, openImageModal } = useSelector((state) => state.products);
 
   const handleOpenImages = (imageURL) => {
     dispatch(setModalImageURL(imageURL));
-    dispatch(setOpenModal(true));
+    dispatch(setOpenImageModal(true));
   };
 
   const ImageGallery = () => {
@@ -35,7 +35,7 @@ export const Gallery = ({ imageContainer }) => {
       <div className="grid grid-cols-3 gap-2">
         {imageContainer ? <ImageGallery /> : "No pictures available"}
       </div>
-      {openModal && <ImageModal />}
+      {openImageModal && <ImageModal />}
     </div>
   );
 };
