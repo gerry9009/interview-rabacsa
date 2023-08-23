@@ -3,9 +3,11 @@ import {
   fetchHighPriceProducts,
   fetchProducts,
   setPaginationPage,
+  setSearchField,
   setViewCategories,
 } from "../../state/reducers/productsReducer";
 import { useDispatch } from "react-redux";
+import SearchBar from "./SearchBar";
 
 function Navigation() {
   const dispatch = useDispatch();
@@ -13,16 +15,19 @@ function Navigation() {
   const getAllProducts = () => {
     dispatch(fetchProducts());
     dispatch(setViewCategories(false));
+    dispatch(setSearchField(""));
   };
 
   const getHighPriceProducts = () => {
     dispatch(fetchHighPriceProducts());
     dispatch(setViewCategories(false));
+    dispatch(setSearchField(""));
   };
 
   const getCategoriesList = () => {
     dispatch(setViewCategories(true));
     dispatch(setPaginationPage(1));
+    dispatch(setSearchField(""));
   };
 
   const btnStyle =
@@ -40,6 +45,7 @@ function Navigation() {
         <button className={btnStyle} onClick={getCategoriesList}>
           Products Categories
         </button>
+        <SearchBar />
       </div>
     </div>
   );

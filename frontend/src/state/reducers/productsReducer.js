@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
   products: [],
+  defaultProducts: [],
   product: {},
   editProduct: {},
   selectedID: null,
@@ -13,6 +14,7 @@ const initialState = {
   openDeleteModal: false,
   currencyRate: 0,
   paginationPage: 1,
+  searchField: "",
 };
 
 export const productsSlice = createSlice({
@@ -21,6 +23,9 @@ export const productsSlice = createSlice({
   reducers: {
     setProducts: (state, action) => {
       state.products = action.payload;
+    },
+    setDefaultProducts: (state, action) => {
+      state.defaultProducts = action.payload;
     },
     setProduct: (state, action) => {
       state.product = action.payload;
@@ -34,11 +39,9 @@ export const productsSlice = createSlice({
     setID: (state, action) => {
       state.selectedID = action.payload;
     },
-    // TODO: ---------------------------------
     setViewCategories: (state, action) => {
       state.viewCategories = action.payload;
     },
-    // TODO: ----------------------------------
     setModalImageURL: (state, action) => {
       state.modalImageURL = action.payload;
     },
@@ -54,6 +57,9 @@ export const productsSlice = createSlice({
     setPaginationPage: (state, action) => {
       state.paginationPage = action.payload;
     },
+    setSearchField: (state, action) => {
+      state.searchField = action.payload;
+    },
   },
   extraReducers: {},
 });
@@ -65,6 +71,7 @@ export const fetchProducts = createAsyncThunk(
       const data = res.data.products;
 
       dispatch(productsSlice.actions.setProducts(data));
+      dispatch(productsSlice.actions.setDefaultProducts(data));
       dispatch(productsSlice.actions.setPaginationPage(1));
       // set first element as a selected element
       const state = getState();
@@ -88,6 +95,7 @@ export const fetchHighPriceProducts = createAsyncThunk(
       // slice data 0-25
       const slicedData = sortedData.slice(0, 25);
       dispatch(productsSlice.actions.setProducts(slicedData));
+      dispatch(productsSlice.actions.setDefaultProducts(slicedData));
       dispatch(productsSlice.actions.setPaginationPage(1));
 
       const state = getState();
@@ -111,6 +119,7 @@ export const fetchFilteredProducts = createAsyncThunk(
       });
 
       dispatch(productsSlice.actions.setProducts(filteredData));
+      dispatch(productsSlice.actions.setDefaultProducts(filteredData));
       dispatch(productsSlice.actions.setPaginationPage(1));
       // set first element as a selected element
       const state = getState();
@@ -189,6 +198,7 @@ export const fetchCurrencyRate = createAsyncThunk(
 );
 
 export const {
+  setProducts,
   setID,
   setEditProduct,
   setModalImageURL,
@@ -196,6 +206,7 @@ export const {
   setOpenDeleteModal,
   setViewCategories,
   setPaginationPage,
+  setSearchField,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
