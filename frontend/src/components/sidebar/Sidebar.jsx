@@ -6,11 +6,15 @@ import { fetchProduct } from "../../state/reducers/productsReducer";
 
 function Sidebar() {
   const dispatch = useDispatch();
-  const { products, selectedID } = useSelector((state) => state.products);
+  const { products, selectedID, viewCategories, categories, paginationPage } =
+    useSelector((state) => state.products);
 
   const [posts, setPost] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  // handle globally the selected page, because easier set value to default
+  // const [currentPage, setCurrentPage] = useState(1);
   const postPerPage = 10;
+
+  const [postsCategories, setPostCategories] = useState([]);
 
   useEffect(() => {
     setPost(products);
@@ -26,7 +30,6 @@ function Sidebar() {
   // Send fetch selected item
   const intervalCallback = () => {
     if (selectedID) {
-      console.log("send fetch", selectedID);
       dispatch(fetchProduct(selectedID));
     }
   };
@@ -39,20 +42,23 @@ function Sidebar() {
     };
   }, [selectedID]);
 
-  const indexOfLastPost = currentPage * postPerPage;
-  const indexOfFirstPost = indexOfLastPost - postPerPage;
-  const currentPost = posts.slice(indexOfFirstPost, indexOfLastPost);
+  // Set categories
+  useEffect(() => {
+    setPostCategories(categories);
+  }, [categories]);
 
-  const paginate = (number) => {
-    setCurrentPage(number);
-  };
+  const indexOfLastPost = paginationPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  // if categories view selected, set categories to the list, if not set products
+  const currentPost = viewCategories
+    ? categories.slice(indexOfFirstPost, indexOfLastPost)
+    : posts.slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <div className="row-start-2 col-start-1 row-span-full col-span-1 bg-gray-50 py-1">
       <Pagination
         postsPerPage={postPerPage}
-        totalPosts={posts.length}
-        paginate={paginate}
+        totalPosts={viewCategories ? postsCategories.length : posts.length}
       />
       <Post posts={currentPost} />
     </div>

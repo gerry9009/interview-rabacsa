@@ -2,6 +2,8 @@ import React from "react";
 import {
   fetchHighPriceProducts,
   fetchProducts,
+  setPaginationPage,
+  setViewCategories,
 } from "../../state/reducers/productsReducer";
 import { useDispatch } from "react-redux";
 
@@ -10,10 +12,17 @@ function Navigation() {
 
   const getAllProducts = () => {
     dispatch(fetchProducts());
+    dispatch(setViewCategories(false));
   };
 
   const getHighPriceProducts = () => {
     dispatch(fetchHighPriceProducts());
+    dispatch(setViewCategories(false));
+  };
+
+  const getCategoriesList = () => {
+    dispatch(setViewCategories(true));
+    dispatch(setPaginationPage(1));
   };
 
   const btnStyle =
@@ -28,7 +37,9 @@ function Navigation() {
         <button onClick={getHighPriceProducts} className={btnStyle}>
           Top 25 Products
         </button>
-        <button className={btnStyle}>Products Categories</button>
+        <button className={btnStyle} onClick={getCategoriesList}>
+          Products Categories
+        </button>
       </div>
     </div>
   );

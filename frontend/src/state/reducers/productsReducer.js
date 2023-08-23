@@ -5,12 +5,14 @@ const initialState = {
   products: [],
   product: {},
   editProduct: {},
-  categories: [],
   selectedID: null,
+  categories: [],
+  viewCategories: false,
   modalImageURL: null,
   openImageModal: false,
   openDeleteModal: false,
   currencyRate: 0,
+  paginationPage: 1,
 };
 
 export const productsSlice = createSlice({
@@ -32,6 +34,11 @@ export const productsSlice = createSlice({
     setID: (state, action) => {
       state.selectedID = action.payload;
     },
+    // TODO: ---------------------------------
+    setViewCategories: (state, action) => {
+      state.viewCategories = action.payload;
+    },
+    // TODO: ----------------------------------
     setModalImageURL: (state, action) => {
       state.modalImageURL = action.payload;
     },
@@ -44,6 +51,9 @@ export const productsSlice = createSlice({
     setCurrencyRate: (state, action) => {
       state.currencyRate = action.payload;
     },
+    setPaginationPage: (state, action) => {
+      state.paginationPage = action.payload;
+    },
   },
   extraReducers: {},
 });
@@ -55,37 +65,66 @@ export const fetchProducts = createAsyncThunk(
       const data = res.data.products;
 
       dispatch(productsSlice.actions.setProducts(data));
-
+      dispatch(productsSlice.actions.setPaginationPage(1));
+      // set first element as a selected element
       const state = getState();
       const products = state.products.products;
       if (products.length) {
         dispatch(productsSlice.actions.setID(products[0].id));
+        dispatch(productsSlice.actions.setEditProduct(products[0]));
       }
     });
   }
 );
 
 export const fetchHighPriceProducts = createAsyncThunk(
-  "get_items",
+  "get_high_price_items",
   async (_, { getState, dispatch }) => {
     axios.get("http://localhost:8088/api/").then((res) => {
       const data = res.data.products;
 
+      // sorting data
       const sortedData = data.sort((a, b) => b.price - a.price);
+      // slice data 0-25
       const slicedData = sortedData.slice(0, 25);
       dispatch(productsSlice.actions.setProducts(slicedData));
+      dispatch(productsSlice.actions.setPaginationPage(1));
 
       const state = getState();
       const products = state.products.products;
       if (products.length) {
         dispatch(productsSlice.actions.setID(products[0].id));
+        dispatch(productsSlice.actions.setEditProduct(products[0]));
+      }
+    });
+  }
+);
+
+export const fetchFilteredProducts = createAsyncThunk(
+  "get_filtered_category_items",
+  async (selectedCategory, { getState, dispatch }) => {
+    axios.get("http://localhost:8088/api/").then((res) => {
+      const data = res.data.products;
+      // handle category filter
+      const filteredData = data.filter((product) => {
+        return product.category === selectedCategory;
+      });
+
+      dispatch(productsSlice.actions.setProducts(filteredData));
+      dispatch(productsSlice.actions.setPaginationPage(1));
+      // set first element as a selected element
+      const state = getState();
+      const products = state.products.products;
+      if (products.length) {
+        dispatch(productsSlice.actions.setID(products[0].id));
+        dispatch(productsSlice.actions.setEditProduct(products[0]));
       }
     });
   }
 );
 
 export const fetchProduct = createAsyncThunk(
-  "get_items",
+  "get_item",
   async (id, { getState, dispatch }) => {
     axios.get(`http://localhost:8088/api/${id}`).then((res) => {
       const data = res.data;
@@ -96,15 +135,15 @@ export const fetchProduct = createAsyncThunk(
 );
 
 export const patchProduct = createAsyncThunk(
-  "get_items",
+  "patch_item",
   async ({ id, title, description, price }, { getState, dispatch }) => {
     axios
       .patch(`http://localhost:8088/api/${id}`, {
         data: { title, description, price },
       })
       .then(async (res) => {
-        const wait = await dispatch(fetchProducts());
-        dispatch(productsSlice.actions.setID(id));
+        dispatch(fetchProducts());
+        dispatch(productsSlice.actions.setPaginationPage(1));
       });
   }
 );
@@ -155,6 +194,8 @@ export const {
   setModalImageURL,
   setOpenImageModal,
   setOpenDeleteModal,
+  setViewCategories,
+  setPaginationPage,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

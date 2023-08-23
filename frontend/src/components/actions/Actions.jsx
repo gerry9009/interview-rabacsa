@@ -26,7 +26,7 @@ function Actions() {
       <div className="inline-flex w-full border-gray-200 border-b-2">
         <button
           className={`${btnStyle} rounded-tl-lg ${
-            addNewPage ? "bg-blue-400" : "bg-gray-200"
+            addNewPage ? "bg-blue-400 text-white" : "bg-gray-200"
           }`}
           onClick={toggleAddNewPage}
         >
@@ -35,7 +35,7 @@ function Actions() {
 
         <button
           className={`${btnStyle} ${
-            addNewPage ? "bg-gray-200" : "bg-blue-400"
+            addNewPage ? "bg-gray-200" : "bg-blue-400 text-white"
           } rounded-tr-lg `}
           onClick={toggleEditPage}
           disabled={products.length ? false : true}

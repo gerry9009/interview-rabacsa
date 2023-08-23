@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { setPaginationPage } from "../../state/reducers/productsReducer";
+import { useDispatch, useSelector } from "react-redux";
 
-function Pagination({ postsPerPage, totalPosts, paginate }) {
+function Pagination({ postsPerPage, totalPosts }) {
+  const dispatch = useDispatch();
+  const { paginationPage } = useSelector((state) => state.products);
   const [pageNumbers, setPageNumbers] = useState([]);
 
   useEffect(() => {
@@ -24,9 +28,11 @@ function Pagination({ postsPerPage, totalPosts, paginate }) {
           <button
             key={uuidv4()}
             onClick={() => {
-              paginate(number);
+              dispatch(setPaginationPage(number));
             }}
-            className="text-gray-500 hover:text-blue-600 p-1 inline-flex items-center text-sm font-medium rounded-full"
+            className={`${
+              paginationPage === number ? "text-blue-400" : "text-gray-500"
+            } hover:text-blue-400 p-1 inline-flex items-center text-sm font-medium rounded-full`}
           >
             {number}
           </button>
