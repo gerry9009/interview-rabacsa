@@ -27,11 +27,7 @@ function Meta() {
           </div>
         </div>
         <div className="row-start-2 col-start-3 flex justify-center">
-          <img
-            src={product.thumbnail}
-            alt={product.title}
-            className="h-full w-4/6"
-          />
+          <img src={product.thumbnail} alt={product.title} />
         </div>
         <div className="row-start-1 col-start-3 flex justify-center items-center">
           <button

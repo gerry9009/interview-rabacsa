@@ -7,7 +7,7 @@ import Sidebar from "./components/sidebar/Sidebar";
 
 function App() {
   return (
-    <div className="h-screen max-w-full max-h-screen grid grid-rows-9 grid-cols-9">
+    <div className="h-screen max-w-full max-h-screen grid grid-rows-9 grid-cols-9 overflow-hidden">
       <Navigation />
       <Sidebar />
       <Meta />

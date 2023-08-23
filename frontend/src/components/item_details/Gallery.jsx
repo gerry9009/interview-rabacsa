@@ -21,7 +21,7 @@ export const Gallery = ({ imageContainer }) => {
       return (
         <div
           key={uuidv4()}
-          className="flex w-2/12 cursor-pointer"
+          className="cursor-pointer"
           onClick={() => handleOpenImages(image)}
         >
           <img src={image} alt={product.title} />
@@ -31,8 +31,8 @@ export const Gallery = ({ imageContainer }) => {
   };
 
   return (
-    <div className="w-7/12 h-full container flex items-center px-4">
-      <div className="flex flex-wrap gap-2 items-center justify-end ">
+    <div className="container flex items-center px-4">
+      <div className="grid grid-cols-3 gap-2">
         {imageContainer ? <ImageGallery /> : "No pictures available"}
       </div>
       {openModal && <ImageModal />}
