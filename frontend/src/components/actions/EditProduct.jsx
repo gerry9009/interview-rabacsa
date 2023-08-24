@@ -92,7 +92,7 @@ const EditProduct = () => {
           />
           <select
             id="currency"
-            className="w-4/12 p-0 absolute z-100 bottom-0 top-0 right-0 text-xs rounded-md bg-transparent"
+            className="w-6/12 lg:w-4/12 p-0 absolute z-100 bottom-0 top-0 right-0 text-xs rounded-md bg-transparent"
             onChange={(e) => {
               setCurrency(e.target.value);
             }}
@@ -104,7 +104,7 @@ const EditProduct = () => {
         </div>
       </div>
 
-      <div className="flex justify-between items-top mt-4 w-2/12 ml-4">
+      <div className="flex justify-center gap-2 lg:gap-8 items-top mt-4 w-2/12 ml-4">
         <button
           className="w-16 h-8 bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white border border-gray-500 hover:border-transparent rounded"
           onClick={handleSubmit}

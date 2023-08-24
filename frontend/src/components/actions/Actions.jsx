@@ -46,7 +46,7 @@ function Actions() {
     );
   };
   return (
-    <div className="col-start-2 col-span-full row-start-8 row-span-1 bg-gray-50 w-full flex flex-col border-l-2 border-r-2">
+    <div className="col-start-2 col-span-full row-start-8 row-span-1 bg-gray-50 w-full flex flex-col border-l-2 border-r-2 border-t-4">
       <ButtonGroup />
       {addNewPage ? <NewProduct /> : <EditProduct />}
     </div>

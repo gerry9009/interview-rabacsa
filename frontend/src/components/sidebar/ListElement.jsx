@@ -34,7 +34,7 @@ function ListElement({ item }) {
         product.title && product.title === item.title
           ? "text-white bg-blue-400"
           : "text-gray-700"
-      } text-center h-16 cursor-pointer border-slate-300 border hover:bg-gray-300 hover:text-white transition-all text-sm`}
+      } text-xs lg:font-bold lg:text-sm h-20 lg:h-16 text-center text-clip  cursor-pointer border-slate-300 border hover:bg-gray-300 hover:text-white transition-all `}
     >
       <p>{viewCategories ? item : item.title}</p>
     </div>

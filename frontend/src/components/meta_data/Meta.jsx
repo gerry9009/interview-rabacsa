@@ -7,7 +7,7 @@ function Meta() {
   const ProductDetails = () => {
     return (
       <>
-        <div className="row-start-1 col-start-1 row-span-3  flex flex-col items-center justify-center">
+        <div className="row-start-1 col-start-1 row-span-3  flex flex-col items-center justify-center text-center p-8">
           <p className="text-2xl font-bold">{product.title}</p>
         </div>
         <div className="row-start-1 col-start-2 row-span-3 flex border-r-2 border-l-2">
@@ -29,8 +29,12 @@ function Meta() {
           </div>
         </div>
         <div className="row-start-2 col-start-3 flex justify-center">
-          {product.thumbnail && (
+          {product.thumbnail ? (
             <img src={product.thumbnail} alt={product.title} />
+          ) : (
+            <div className="flex justify-center items-center font-bold">
+              No picture available
+            </div>
           )}
         </div>
       </>

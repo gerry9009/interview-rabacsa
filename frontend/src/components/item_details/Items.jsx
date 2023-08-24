@@ -70,7 +70,7 @@ const Items = () => {
             </div>
           </div>
         </div>
-        <div className="w-2/4 flex">
+        <div className="w-2/4">
           <Gallery imageContainer={product.images} />
         </div>
       </>
@@ -78,7 +78,7 @@ const Items = () => {
   };
 
   return (
-    <div className="row-start-5 col-start-2 row-span-4 col-span-full flex border-2 border-t-4 border-b-4">
+    <div className="row-start-5 col-start-2 row-span-4 col-span-full flex border-l-2 border-r-2 border-t-4">
       {product.id && <ItemDescription />}
     </div>
   );

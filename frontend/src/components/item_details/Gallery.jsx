@@ -21,10 +21,10 @@ export const Gallery = ({ imageContainer }) => {
       return (
         <div
           key={uuidv4()}
-          className="cursor-pointer"
+          className="cursor-pointer w-1/4"
           onClick={() => handleOpenImages(image)}
         >
-          <img src={image} alt={product.title} />
+          <img src={image} alt={product.title} className="border-2" />
         </div>
       );
     });
@@ -32,17 +32,21 @@ export const Gallery = ({ imageContainer }) => {
 
   const NoPicture = () => {
     return (
-      <div className="row-start-2 col-start-2 w-full font-bold text-center">
+      <div className="text-center font-bold">
         <p>No pictures available</p>
       </div>
     );
   };
 
   return (
-    <div className="container flex items-center px-4">
-      <div className="grid grid-cols-3 gap-2">
-        {imageContainer ? <ImageGallery /> : <NoPicture />}
-      </div>
+    <div className="flex justify-center items-center w-full h-full px-4">
+      {imageContainer ? (
+        <div className="w-full h-full flex flex-wrap gap-2 justify-center py-2">
+          <ImageGallery />
+        </div>
+      ) : (
+        <NoPicture />
+      )}
       {openImageModal && <ImageModal />}
     </div>
   );
