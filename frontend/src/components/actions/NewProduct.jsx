@@ -18,10 +18,15 @@ function NewProduct() {
     price: "0",
     rating: "1",
     stock: "0",
-    category: categories[0],
+    category: "",
   });
   const [initializeState, setInitializeState] = useState();
   const [currency, setCurrency] = useState("EUR");
+
+  useEffect(() => {
+    console.log("Lefut");
+    setValues({ ...values, category: categories[0] });
+  }, [categories]);
 
   useEffect(() => {
     dispatch(fetchCategories());

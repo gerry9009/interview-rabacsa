@@ -26,6 +26,7 @@ const SearchBar = () => {
       const category = product.category.toLowerCase();
       const brand = product.brand.toLowerCase();
 
+      console.log(search);
       if (
         title.includes(search) ||
         description.includes(search) ||
