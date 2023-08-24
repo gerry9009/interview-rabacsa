@@ -26,7 +26,6 @@ const SearchBar = () => {
       const category = product.category.toLowerCase();
       const brand = product.brand.toLowerCase();
 
-      console.log(search);
       if (
         title.includes(search) ||
         description.includes(search) ||
@@ -45,7 +44,7 @@ const SearchBar = () => {
         type="text"
         value={searchField}
         onChange={(e) => handleChangeSearchFiled(e.target.value)}
-        className="rounded-l-lg px-3 appearance-none text-xs block w-full h-8 bg-gray-200 text-gray-700 border border-gray-200 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        className="rounded-l-lg px-3 appearance-none block w-full h-8 bg-gray-200 text-gray-700 border border-gray-200 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
         placeholder="Search product, category or description"
       />
       <button className="flex items-center justify-center text-white bg-gray-500 hover:bg-blue-400 px-3 rounded-r-lg">

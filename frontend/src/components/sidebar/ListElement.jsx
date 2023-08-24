@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setEditProduct,
   setID,
+  setSearchField,
   setViewCategories,
 } from "../../state/reducers/productsReducer";
 import { fetchFilteredProducts } from "../../state/reducers/productsReducer";
@@ -13,6 +14,8 @@ function ListElement({ item }) {
 
   // onclick -> fetch data about
   const getProductDetails = () => {
+    // clear searchfield value
+    dispatch(setSearchField(""));
     if (viewCategories) {
       // fetchFiltered products
       dispatch(fetchFilteredProducts(item));
