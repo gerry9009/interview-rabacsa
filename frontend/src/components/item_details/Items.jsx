@@ -62,11 +62,11 @@ const Items = () => {
           </div>
 
           <div className="w-full flex h-1/4 border-t-2">
-            <div className={numberSeparation(valueNameStyle)}>
+            <div className={valueNameStyle && numberSeparation(valueNameStyle)}>
               <p>Price in HUF</p>
             </div>
             <div className={valueStyle}>
-              <p>{numberSeparation(price)} HUF</p>
+              <p>{price && numberSeparation(price)} HUF</p>
             </div>
           </div>
         </div>

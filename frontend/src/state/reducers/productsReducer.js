@@ -162,6 +162,7 @@ export const postProduct = createAsyncThunk(
   async (data, { getState, dispatch }) => {
     axios.post(`http://localhost:8088/api/`, { data }).then((res) => {
       dispatch(fetchProducts());
+      dispatch(productsSlice.actions.setViewCategories(false));
     });
   }
 );
@@ -171,6 +172,7 @@ export const deleteItem = createAsyncThunk(
   async (id, { getState, dispatch }) => {
     axios.delete(`http://localhost:8088/api/${id}`).then((res) => {
       dispatch(fetchProducts());
+      dispatch(productsSlice.actions.setViewCategories(false));
     });
   }
 );
