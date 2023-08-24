@@ -55,7 +55,7 @@ function Sidebar() {
     : posts.slice(indexOfFirstPost, indexOfLastPost);
 
   return (
-    <div className="row-start-2 col-start-1 row-span-full col-span-1 bg-gray-50 py-1">
+    <div className="row-start-2 col-start-1 row-span-full col-span-1 bg-gray-50">
       <Pagination
         postsPerPage={postPerPage}
         totalPosts={viewCategories ? postsCategories.length : posts.length}

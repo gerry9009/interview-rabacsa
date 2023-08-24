@@ -24,7 +24,6 @@ function NewProduct() {
   const [currency, setCurrency] = useState("EUR");
 
   useEffect(() => {
-    console.log("Lefut");
     setValues({ ...values, category: categories[0] });
   }, [categories]);
 

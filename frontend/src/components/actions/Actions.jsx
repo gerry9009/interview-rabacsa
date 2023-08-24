@@ -25,7 +25,7 @@ function Actions() {
     return (
       <div className="inline-flex w-full border-gray-200 border-b-2">
         <button
-          className={`${btnStyle} rounded-tl-lg ${
+          className={`${btnStyle}  ${
             addNewPage ? "bg-blue-400 text-white" : "bg-gray-200"
           }`}
           onClick={toggleAddNewPage}
@@ -36,7 +36,7 @@ function Actions() {
         <button
           className={`${btnStyle} ${
             addNewPage ? "bg-gray-200" : "bg-blue-400 text-white"
-          } rounded-tr-lg `}
+          }  `}
           onClick={toggleEditPage}
           disabled={products.length ? false : true}
         >
@@ -46,7 +46,7 @@ function Actions() {
     );
   };
   return (
-    <div className="col-start-2 col-span-full row-start-8 row-span-1 bg-gray-50 w-full flex flex-col">
+    <div className="col-start-2 col-span-full row-start-8 row-span-1 bg-gray-50 w-full flex flex-col border-l-2 border-r-2">
       <ButtonGroup />
       {addNewPage ? <NewProduct /> : <EditProduct />}
     </div>
