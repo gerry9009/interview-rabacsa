@@ -30,10 +30,18 @@ export const Gallery = ({ imageContainer }) => {
     });
   };
 
+  const NoPicture = () => {
+    return (
+      <div className="row-start-2 col-start-2 w-full font-bold text-center">
+        <p>No pictures available</p>
+      </div>
+    );
+  };
+
   return (
     <div className="container flex items-center px-4">
       <div className="grid grid-cols-3 gap-2">
-        {imageContainer ? <ImageGallery /> : "No pictures available"}
+        {imageContainer ? <ImageGallery /> : <NoPicture />}
       </div>
       {openImageModal && <ImageModal />}
     </div>

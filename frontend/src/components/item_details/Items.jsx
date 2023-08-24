@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Gallery } from "./Gallery";
 import { fetchCurrencyRate } from "../../state/reducers/productsReducer";
+import numberSeparation from "../utils/numberFormatter";
 
 const Items = () => {
   const dispatch = useDispatch();
@@ -18,24 +19,66 @@ const Items = () => {
     }
   }, [product]);
 
+  const valueNameStyle =
+    "w-1/2 p-2 border-r-2 flex justify-start items-center font-bold";
+  const valueStyle = "flex justify-center items-center w-1/2";
+
   const ItemDescription = () => {
     return (
       <>
-        <div className="flex justify-center items-center">
-          <p>{product.description}</p>
+        <div className="w-1/4 flex flex-col justify-center items-center">
+          <div className="h-1/4 flex justify-center items-center font-bold ">
+            <p>Description</p>
+          </div>
+          <div className="h-3/4 w-full flex justify-center px-6 py-9 border-t-2">
+            <p>{product.description}</p>
+          </div>
         </div>
-        <div className="flex flex-col justify-center items-center">
-          <p>Stock: {product.stock} pieces</p>
-          <p>Rating: {product.rating}</p>
-          <p>{price} Huf</p>
+        <div className="w-1/4 flex flex-col justify-center items-center border-l-2 border-r-2">
+          <div className="w-full flex h-1/4">
+            <div className={valueNameStyle}>
+              <p>Available Stock</p>
+            </div>
+            <div className={valueStyle}>
+              <p>{product.stock}</p>
+            </div>
+          </div>
+          <div className="w-full flex h-1/4 border-t-2">
+            <div className={valueNameStyle}>
+              <p>Rating</p>
+            </div>
+            <div className={valueStyle}>
+              <p>{product.rating}</p>
+            </div>
+          </div>
+
+          <div className="w-full flex h-1/4 border-t-2">
+            <div className={valueNameStyle}>
+              <p>Price in EURO</p>
+            </div>
+            <div className={valueStyle}>
+              <p>{product.price} EUR</p>
+            </div>
+          </div>
+
+          <div className="w-full flex h-1/4 border-t-2">
+            <div className={numberSeparation(valueNameStyle)}>
+              <p>Price in HUF</p>
+            </div>
+            <div className={valueStyle}>
+              <p>{numberSeparation(price)} HUF</p>
+            </div>
+          </div>
         </div>
-        <Gallery imageContainer={product.images} />
+        <div className="w-2/4 flex">
+          <Gallery imageContainer={product.images} />
+        </div>
       </>
     );
   };
 
   return (
-    <div className="row-start-5 col-start-2 row-span-4 col-span-full grid grid-cols-3 gap-2 border-2 px-2">
+    <div className="row-start-5 col-start-2 row-span-4 col-span-full flex border-2 border-t-4 border-b-4">
       {product.id && <ItemDescription />}
     </div>
   );
